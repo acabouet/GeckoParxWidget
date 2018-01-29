@@ -13,15 +13,79 @@
     "thumbnail": "images/logo.png",
     "preferences": [
       {
-      "name" : "color",
+      "name" : "Color 1",
       "type" : "colour",
-      "value" : "",
+      "value" : "#e6194b",
       "validation" : {
         "required" : true
         }
       },
       {
-        "name" : "Refresh Interval",
+        "name" : "Color 2",
+        "type" : "colour",
+        "value" : "#3cb44b",
+        "validation" : {
+          "required" : true
+        }
+      },
+      {
+        "name" : "Color 3",
+        "type" : "colour",
+        "value" : "#ffe119",
+        "validation" : {
+          "required" : true
+        }
+      },
+      {
+        "name" : "Color 4",
+        "type" : "colour",
+        "value" : "#0082c8",
+        "validation" : {
+          "required" : true
+        }
+      },
+      {
+        "name" : "Color 5",
+        "type" : "colour",
+        "value" : "#f58231",
+        "validation" : {
+          "required" : true
+        }
+      },
+      {
+        "name" : "Color 6",
+        "type" : "colour",
+        "value" : "#911eb4",
+        "validation" : {
+          "required" : true
+        }
+      },
+      {
+        "name" : "Color 7",
+        "type" : "colour",
+        "value" : "#f032e6",
+        "validation" : {
+          "required" : true
+        }
+      },
+      {
+        "name" : "Color 8",
+        "type" : "colour",
+        "value" : "#46f0f0",
+        "validation" : {
+          "required" : true
+        }
+      },
+      {
+        "name" : "Color 9",
+        "type" : "colour",
+        "value" : "#aa6e28",
+        "validation" : {
+          "required" : true
+        }
+      },
+      {
+        "name" : "Timer Interval",
         "type" : "int",
         "value" : "30",
         "validation" : {
