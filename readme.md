@@ -1,6 +1,6 @@
 **A Simple SignageLive Widget for Gecko Parx**
 
-Clone down and run `npm install` in the root folder of the project. 
+Clone repo and run `npm install` in the root folder of the project to install dependencies. 
 
 Run `npm run dist` to compile project files into a wgt file that can be uploaded to SignageLive
 
