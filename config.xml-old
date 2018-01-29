@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:sl="http://www.signagelive.com/widgets" id="https://github.com/signagelive/widget-simple-with-libraries" version="0.0.1" width="1920" height="1080">
+    <!-- Name of the widget displayed in Signagelive as the name of the Media Asset -->
+    <name>
+        Gecko Parx Widget
+    </name>
+    <description>
+        Random color rotation and timer widget for Gecko Parx
+    </description>
+    <!-- Widget author -->
+    <author>
+        Adrienne Cabouet for Lavu Inc
+    </author>
+    <!-- Start page for widget -->
+    <content src="index.html" />
+    <!-- Icons to display in Signagelive, not essential as Signagelive will attempt to generate a preview if these are omitted -->
+    <icon src="images/logo.png" sl:thumbnail="large" />
+    <!-- Preferences (Optional) -->
+    <preference name="Color 1" value="#e6194b" sl:type="colour" sl:required="true" />
+    <preference name="Color 2" value="#3cb44b" sl:type="colour" sl:required="true" />
+    <preference name="Color 3" value="#ffe119" sl:type="colour" sl:required="true" />
+    <preference name="Color 4" value="#0082c8" sl:type="colour" sl:required="true" />
+    <preference name="Color 5" value="#f58231" sl:type="colour" sl:required="true" />
+    <preference name="Color 6" value="#911eb4" sl:type="colour" sl:required="true" />
+    <preference name="Color 7" value="#f032e6" sl:type="colour" sl:required="true" />
+    <preference name="Color 8" value="#46f0f0" sl:type="colour" sl:required="true" />
+    <preference name="Color 9" value="#aa6e28" sl:type="colour" sl:required="true" />
+    <preference name="Timer Interval" value="30" sl:type="int" sl:required="true" />
+</widget>
