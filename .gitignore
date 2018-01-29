@@ -59,4 +59,5 @@ typings/
 # dotenv environment variables file
 .env
 
-
+# ignoring config.xml for local dev cuz it's generated
+config.xml
