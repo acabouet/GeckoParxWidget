@@ -1,0 +1,36 @@
+{
+  "name": "gecko-parx-widget",
+  "version": "1.0.0",
+  "description": "Random color rotation and timer widget for Gecko Parx",
+  "main": "index.html",
+  "author": "Adrienne Cabouet for Lavu, Inc",
+  "license": "ISC",
+  "scripts": {
+    "dist": "signagelive-widget-builder"
+  },
+  "widgetConfig": {
+    "displayName": "Gecko Parx Widget",
+    "thumbnail": "images/logo.png",
+    "preferences": [
+      {
+      "name" : "color",
+      "type" : "colour",
+      "value" : "",
+      "validation" : {
+        "required" : true
+        }
+      },
+      {
+        "name" : "Refresh Interval",
+        "type" : "int",
+        "value" : "30",
+        "validation" : {
+          "required" : true
+        }
+      }
+    ]
+  },
+  "devDependencies": {
+    "signagelive-widget-builder": "^1.0.1"
+  }
+}
