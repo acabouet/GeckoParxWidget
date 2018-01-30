@@ -11,6 +11,7 @@
   "widgetConfig": {
     "displayName": "Gecko Parx Widget",
     "thumbnail": "images/logo.png",
+    "description": "Random color rotation and timer widget for Gecko Parx",
     "preferences": [
       {
       "name" : "Color 1",
