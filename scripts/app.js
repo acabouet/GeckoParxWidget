@@ -46,12 +46,7 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
         return intervals;
     }
 
-    // set time interval for each div
-
-
-
     config.on('config-initialized', function(event, data) {
-
 
         // Loop through all the widget preferences, find the colors, and add them to array. Also get the timer interval and save it to a var to work with.
         var colors = [];
@@ -69,9 +64,26 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
 
         // Get all the divs we're gonna work with, get three random colors, then set them colors
         $('.time-block').each(function(index) {
+            var that = $(this);
             rand = getRandomNumber(colors);
-            setColor(colors[rand], $(this));
+            setColor(colors[rand], that);
+            // @TODO - take the colors out of the array once they're set for no repeats.
+
+            switch(index) {
+                case 0:
+                    that.find('.time-remain').text(timerInterval + ' minutes remaining');
+                    break;
+                case 1:
+                    that.find('.time-remain').text(timerInterval * 2 + ' minutes remaining');
+                    break;
+                case 2:
+                    that.find('.time-remain').text(timerInterval * 3 + ' minutes remaining');
+                    break;
+
+            }
+
         });
+
 
 
 
@@ -79,5 +91,7 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
     config.on('config-error', function() {
         $('#error').text('Error loading SignageLive widget preferences');
     });
+
     config.init();
+
 });
