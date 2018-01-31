@@ -1,3 +1,5 @@
+// @TODO - take the colors out of the array once they're set for no repeats.
+
 require.config({
     baseUrl: 'scripts/lib',
     paths: {
@@ -19,14 +21,12 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
         $div.find('span.color').text($n_match[1]);
     }
 
-
-    // Get a random number 0 to 9;
-    function getRandomNumber(arr) {
-        if($.isArray(arr)) {
-            return Math.floor(Math.random()*arr.length);
-        } else {
-            return Math.floor(Math.random() * 9);
-        }
+    // Get random color
+    function getRandomColor(arr){
+        arr.sort(function() {
+            return Math.round(Math.random());
+        });
+        return arr.pop();
     }
 
     // Get timeInterval, timeInterval * 2, and timeInterval * 3 - for first, second, and third groups
@@ -61,27 +61,40 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
 
         // get all times together
         var intervals = getTimeIntervals(timerInterval);
+        console.log(intervals);
+
+        // countdown timer 1 second = 1000 milliseconds. 60 seconds (1 minute) = 60000 milliseconds. 30 minutes = 180000 milliseconds.
+        var n = timerInterval;
+
+        // function to create per minute countdown clock
+        var tm = setInterval(countDown, 60000);
+
+        function countDown(elem){
+            n--;
+            if(n === 0){
+                clearInterval(tm);
+            }
+            $(elem).find('.time-remain').text(n + ' minutes remaining');
+            console.log(n);
+        }
+
 
         // Get all the divs we're gonna work with, get three random colors, then set them colors
         $('.time-block').each(function(index) {
             var that = $(this);
-            rand = getRandomNumber(colors);
-            setColor(colors[rand], that);
-            // @TODO - take the colors out of the array once they're set for no repeats.
-
+            color = getRandomColor(colors);
+            setColor(color, that);
             switch(index) {
                 case 0:
                     that.find('.time-remain').text(timerInterval + ' minutes remaining');
                     break;
                 case 1:
-                    that.find('.time-remain').text(timerInterval * 2 + ' minutes remaining');
+                    countDown(that);
                     break;
                 case 2:
                     that.find('.time-remain').text(timerInterval * 3 + ' minutes remaining');
                     break;
-
             }
-
         });
 
 
