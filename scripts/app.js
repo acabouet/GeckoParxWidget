@@ -30,18 +30,18 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
     }
 
     // Get timeInterval, timeInterval * 2, and timeInterval * 3 - for first, second, and third groups
+    // 1 second = 1000 milliseconds. 60 seconds (1 minute) = 60000 milliseconds. 30 minutes = 180000 milliseconds.
+    // Get the timer intervals in increments (1, x2, x3) and I need to get those same intervals in milliseconds
     function getTimeIntervals(t){
-        intervals = [];
+        var intervals = {};
         toMillisecconds = 60000;
 
-        // get first interval
-        intervals.push(t * toMillisecconds);
-
-        // get second interval
-        intervals.push(t * (toMillisecconds * 2));
-
-        // get third interval
-        intervals.push(t * (toMillisecconds * 3));
+        for (i = 1; i <= 3; i++) {
+            intervals[i] = {
+                'minutes' : t * i,
+                'milliseconds' : (t * i) * toMillisecconds
+            }
+        }
 
         return intervals;
     }
@@ -51,6 +51,12 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
         // Loop through all the widget preferences, find the colors, and add them to array. Also get the timer interval and save it to a var to work with.
         var colors = [];
         var timerInterval;
+        var position;
+        var tm = {};
+        var group1 = document.getElementById('group1');
+        var group2 = document.getElementById('group2');
+        var group3 = document.getElementById('group3');
+
         for (var preferenceKey in config.preferences) {
             if(preferenceKey.toLowerCase().indexOf('color') >= 0) {
                 colors.push(config.preferences[preferenceKey]);
@@ -61,22 +67,22 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
 
         // get all times together
         var intervals = getTimeIntervals(timerInterval);
-        console.log(intervals);
 
-        // countdown timer 1 second = 1000 milliseconds. 60 seconds (1 minute) = 60000 milliseconds. 30 minutes = 180000 milliseconds.
-        var n = timerInterval;
 
-        // function to create per minute countdown clock
-        var tm = setInterval(countDown, 60000);
-
-        function countDown(elem){
-            n--;
-            if(n === 0){
-                clearInterval(tm);
-            }
-            $(elem).find('.time-remain').text(n + ' minutes remaining');
-            console.log(n);
+        function getPosition(i){
+            return i + 1;
         }
+
+        // Add color to a div, then start a timer
+        function setTimer(elem) {
+            var that = $(elem);
+            color = getRandomColor(colors);
+            setColor(color, that);
+            position = that.prop('id');
+            interval = intervals[position].minutes;
+            $(that).find('.time-remain').text(interval + ' minutes remaining');
+        }
+
 
 
         // Get all the divs we're gonna work with, get three random colors, then set them colors
@@ -84,21 +90,23 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
             var that = $(this);
             color = getRandomColor(colors);
             setColor(color, that);
-            switch(index) {
-                case 0:
-                    that.find('.time-remain').text(timerInterval + ' minutes remaining');
-                    break;
-                case 1:
-                    countDown(that);
-                    break;
-                case 2:
-                    that.find('.time-remain').text(timerInterval * 3 + ' minutes remaining');
-                    break;
-            }
+
+            // Set appropriate countdown timer for each div
+            position = getPosition(index);
+            interval = intervals[position].minutes;
+
+            $(that).find('.time-remain').text(interval + ' minutes remaining');
+
+            tm[position] = setInterval(function(){
+                interval--;
+                if(interval === 0){
+                    clearInterval(tm[position]);
+                }
+
+                $(that).find('.time-remain').text(interval + ' minutes remaining');
+                console.log(interval);
+            }, 60000)
         });
-
-
-
 
     });
     config.on('config-error', function() {
