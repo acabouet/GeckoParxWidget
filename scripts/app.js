@@ -37,7 +37,7 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
 
     // Get timeInterval, timeInterval * 2, and timeInterval * 3 - for first, second, and third groups
     // 1 second = 1000 milliseconds. 60 seconds (1 minute) = 60000 milliseconds. 30 minutes = 180000 milliseconds.
-    // Get the timer intervals in increments (1, x2, x3) and I need to get those same intervals in milliseconds
+    // Get the timer intervals in increments (1, x2, x3) and then get those same intervals in milliseconds
     function getTimeIntervals(t){
         var intervals = {};
         toMillisecconds = 60000;
@@ -81,9 +81,14 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
             var position = getBlockId(id);
             var interval = intervals[position].minutes;
 
+            var now = new Date();
+            var nextTime = now.getMinutes() + interval;
+            now.setMinutes(nextTime);
+            var timeUp = now.toLocaleTimeString();
 
             // This sets a working timer but the same for all three divs for some reason
             $(that).find('.time-remain').text(interval + ' minutes remaining');
+            $(that).find('.time-up').text(timeUp);
 
             tm[position] = setInterval(function(){
                 interval--;
@@ -93,7 +98,7 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
                     clearInterval(tm[position]);
                 } else {
                     $(that).find('.time-remain').text(interval + ' minutes remaining');
-                }
+            }
             }, 60000)
         });
 
