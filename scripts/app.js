@@ -53,9 +53,11 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
         var timerInterval;
         var position;
         var tm = {};
-        var group1 = document.getElementById('group1');
-        var group2 = document.getElementById('group2');
-        var group3 = document.getElementById('group3');
+        var timeBlocks = {
+            0: document.getElementById('group1'),
+            1: document.getElementById('group2'),
+            2: document.getElementById('group3')
+        };
 
         for (var preferenceKey in config.preferences) {
             if(preferenceKey.toLowerCase().indexOf('color') >= 0) {
@@ -68,33 +70,24 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
         // get all times together
         var intervals = getTimeIntervals(timerInterval);
 
-
-        function getPosition(i){
-            return i + 1;
+        function getBlockId(id) {
+            idnumber = id.slice(-1);
+            return idnumber;
         }
-
-        // Add color to a div, then start a timer
-        function setTimer(elem) {
-            var that = $(elem);
-            color = getRandomColor(colors);
-            setColor(color, that);
-            position = that.prop('id');
-            interval = intervals[position].minutes;
-            $(that).find('.time-remain').text(interval + ' minutes remaining');
-        }
-
-
 
         // Get all the divs we're gonna work with, get three random colors, then set them colors
-        $('.time-block').each(function(index) {
+        $('.time-block').each(function() {
             var that = $(this);
-            color = getRandomColor(colors);
+            var color = getRandomColor(colors);
             setColor(color, that);
 
             // Set appropriate countdown timer for each div
-            position = getPosition(index);
-            interval = intervals[position].minutes;
+            var id = that.prop('id');
+            var position = getBlockId(id);
+            var interval = intervals[position].minutes;
 
+
+            // This sets a working timer but the same for all three divs for some reason
             $(that).find('.time-remain').text(interval + ' minutes remaining');
 
             tm[position] = setInterval(function(){
