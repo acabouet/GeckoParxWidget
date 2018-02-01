@@ -42,7 +42,7 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
         var intervals = {};
         toMillisecconds = 60000;
 
-        for (i = 1; i <= 3; i++) {
+        for (i = 1; i <= 9; i++) {
             intervals[i] = {
                 'minutes' : t * i,
                 'milliseconds' : (t * i) * toMillisecconds
@@ -58,6 +58,7 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
         var colors = [];
         var timerInterval;
         var tm = {};
+        var timeBlocks = $('.time-block');
 
         for (var preferenceKey in config.preferences) {
             if(preferenceKey.toLowerCase().indexOf('color') >= 0) {
@@ -67,40 +68,45 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
             }
         }
 
-        // get all times together
+        // get all intervals together
         var intervals = getTimeIntervals(timerInterval);
 
         // Get all the divs we're gonna work with, get three random colors, then set them colors
-        $('.time-block').each(function() {
+        timeBlocks.each(function() {
             var that = $(this);
             var color = getRandomColor(colors);
             setColor(color, that);
 
-            // Set appropriate countdown timer for each div
+            // Set appropriate countdown timer for each wristband color
             var id = that.prop('id');
             var position = getBlockId(id);
             var interval = intervals[position].minutes;
 
+            // Get and display a countdown clock and current time + the interval so we can show when this wristband color's time will be up
             var now = new Date();
             var nextTime = now.getMinutes() + interval;
             now.setMinutes(nextTime);
-            var timeUp = now.toLocaleTimeString();
-
-            // This sets a working timer but the same for all three divs for some reason
+            var timeUp = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
             $(that).find('.time-remain').text(interval + ' minutes remaining');
             $(that).find('.time-up').text(timeUp);
+
+            $('.time-block').hide();
+            $('.time-block:lt(3)').show();
 
             tm[position] = setInterval(function(){
                 interval--;
                 if(interval === 1) {
                     $(that).find('.time-remain').text('Your time is up!');
                 } else if(interval === 0){
+                    $(that).remove();
+                    $('.time-block:lt(3)').show();
                     clearInterval(tm[position]);
                 } else {
                     $(that).find('.time-remain').text(interval + ' minutes remaining');
             }
             }, 60000)
         });
+
 
     });
     config.on('config-error', function() {
