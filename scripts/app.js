@@ -29,6 +29,12 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
         return arr.pop();
     }
 
+    // Get ID number of time-block from the div id (e.g. id '#group1' returns 1)
+    function getBlockId(id) {
+        idnumber = id.slice(-1);
+        return idnumber;
+    }
+
     // Get timeInterval, timeInterval * 2, and timeInterval * 3 - for first, second, and third groups
     // 1 second = 1000 milliseconds. 60 seconds (1 minute) = 60000 milliseconds. 30 minutes = 180000 milliseconds.
     // Get the timer intervals in increments (1, x2, x3) and I need to get those same intervals in milliseconds
@@ -51,13 +57,7 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
         // Loop through all the widget preferences, find the colors, and add them to array. Also get the timer interval and save it to a var to work with.
         var colors = [];
         var timerInterval;
-        var position;
         var tm = {};
-        var timeBlocks = {
-            0: document.getElementById('group1'),
-            1: document.getElementById('group2'),
-            2: document.getElementById('group3')
-        };
 
         for (var preferenceKey in config.preferences) {
             if(preferenceKey.toLowerCase().indexOf('color') >= 0) {
@@ -69,11 +69,6 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
 
         // get all times together
         var intervals = getTimeIntervals(timerInterval);
-
-        function getBlockId(id) {
-            idnumber = id.slice(-1);
-            return idnumber;
-        }
 
         // Get all the divs we're gonna work with, get three random colors, then set them colors
         $('.time-block').each(function() {
@@ -92,12 +87,13 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
 
             tm[position] = setInterval(function(){
                 interval--;
-                if(interval === 0){
+                if(interval === 1) {
+                    $(that).find('.time-remain').text('Your time is up!');
+                } else if(interval === 0){
                     clearInterval(tm[position]);
+                } else {
+                    $(that).find('.time-remain').text(interval + ' minutes remaining');
                 }
-
-                $(that).find('.time-remain').text(interval + ' minutes remaining');
-                console.log(interval);
             }, 60000)
         });
 
