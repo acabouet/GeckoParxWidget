@@ -1,4 +1,6 @@
-**A Simple SignageLive Widget for Gecko Parx**
+**A SignageLive Widget for Gecko Parx**
+
+A widget to help automate the process of cycling through shifts of kids on trampolines. Meant to be deployed on a SignageLive compatible device or Smart TV.
 
 Clone repo and run `npm install` in the root folder of the project to install dependencies. 
 
