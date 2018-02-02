@@ -80,7 +80,7 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
             var position = getBlockId(id);
             var interval = intervals[position].minutes;
 
-            // Get and display a countdown clock and current time + the interval so we can show when this wristband color's time will be up
+            // Get and display a countdown clock and current time + the interval so we can shownpm  when this wristband color's time will be up
             var now = new Date();
             var nextTime = now.getMinutes() + interval;
             now.setMinutes(nextTime);
