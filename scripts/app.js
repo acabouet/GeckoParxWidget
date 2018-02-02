@@ -93,12 +93,14 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
                 if(interval === 1) {
                     $(that).find('.time-remain').text('Your time is up!');
                 } else if(interval === 0){
-                    $(that).remove();
-                    $('.time-block:lt(3)').show();
+                    $(that).slideUp("slow", function() {
+                        $(that).remove();
+                        $('.time-block:lt(3)').show();
+                    });
                     clearInterval(tm[position]);
                 } else {
                     $(that).find('.time-remain').text(interval + ' minutes remaining');
-            }
+                }
             }, 60000);
 
             $('.time-block').hide();
