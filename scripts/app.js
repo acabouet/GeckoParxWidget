@@ -1,5 +1,3 @@
-// @TODO - take the colors out of the array once they're set for no repeats.
-
 require.config({
     baseUrl: 'scripts/lib',
     paths: {
@@ -90,9 +88,6 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
             $(that).find('.time-remain').text(interval + ' minutes remaining');
             $(that).find('.time-up').text(timeUp);
 
-            $('.time-block').hide();
-            $('.time-block:lt(3)').show();
-
             tm[position] = setInterval(function(){
                 interval--;
                 if(interval === 1) {
@@ -104,7 +99,11 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
                 } else {
                     $(that).find('.time-remain').text(interval + ' minutes remaining');
             }
-            }, 60000)
+            }, 60000);
+
+            $('.time-block').hide();
+            $('.time-block:lt(3)').show();
+
         });
 
 
