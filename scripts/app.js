@@ -19,14 +19,6 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
         $div.find('span.color').text($n_match[1]);
     }
 
-    // Get random color
-    function getRandomColor(arr){
-        arr.sort(function() {
-            return Math.round(Math.random());
-        });
-        return arr.pop();
-    }
-
     // Get ID number of time-block from the div id (e.g. id '#group1' returns 1)
     function getBlockId(id) {
         idnumber = id.slice(-1);
@@ -70,9 +62,9 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
         var intervals = getTimeIntervals(timerInterval);
 
         // Get all the divs we're gonna work with, get three random colors, then set them colors
-        timeBlocks.each(function() {
+        timeBlocks.each(function(index) {
             var that = $(this);
-            var color = getRandomColor(colors);
+            var color = colors[index];
             setColor(color, that);
 
             // Set appropriate countdown timer for each wristband color
