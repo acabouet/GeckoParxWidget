@@ -45,32 +45,41 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
     config.on('config-initialized', function(event, data) {
 
         // Loop through all the widget preferences, find the colors, and add them to array. Also get the timer interval and save it to a var to work with.
-        var colors = [];
-        var timerInterval;
+        var bands = [];
         var tm = {};
         var timeBlocks = $('.time-block');
 
+        i = 0;
+
         for (var preferenceKey in config.preferences) {
             if(preferenceKey.toLowerCase().indexOf('color') >= 0) {
-                colors.push(config.preferences[preferenceKey]);
-            } else if(preferenceKey.toLowerCase().indexOf('time') >= 0) {
-                timerInterval = config.preferences[preferenceKey];
+                bands.push(
+                    {
+                        color: config.preferences[preferenceKey]
+                    }
+                );
             }
         }
 
-        // get all intervals together
-        var intervals = getTimeIntervals(timerInterval);
+        for (preferenceKey in config.preferences) {
+            if(preferenceKey.toLowerCase().indexOf('timer') >= 0) {
+                bands[i].timer = config.preferences[preferenceKey];
+                i++;
+            }
 
-        // Get all the divs we're gonna work with, get three random colors, then set them colors
+        }
+
+        //Get all the divs we're gonna work with, get three random colors, then set them colors
         timeBlocks.each(function(index) {
             var that = $(this);
-            var color = colors[index];
+            var color = bands[index].color;
             setColor(color, that);
 
             // Set appropriate countdown timer for each wristband color
             var id = that.prop('id');
             var position = getBlockId(id);
-            var interval = intervals[position].minutes;
+
+            var interval = bands[index].timer;
 
             // Get and display a countdown clock and current time + the interval so we can shownpm  when this wristband color's time will be up
             var now = new Date();
@@ -82,12 +91,16 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
 
             tm[position] = setInterval(function(){
                 interval--;
-                if(interval === 1) {
-                    $(that).find('.time-remain').text('Your time is up!');
-                } else if(interval === 0){
+                if(interval === 5) {
+                    $(that).find('.time-remain').text('Your time is up! Please clear the floor within 5 minutes.');
+                    $(that).find('.time-up').empty();
+                } else if(interval <= 0){
                     $(that).slideUp("slow", function() {
                         $(that).remove();
                         $('.time-block:lt(3)').show();
+                        setTimeout(function() {
+                            console.log('time up');
+                        }, 900000);
                     });
                     clearInterval(tm[position]);
                 } else {

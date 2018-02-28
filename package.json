@@ -22,9 +22,25 @@
         }
       },
       {
+        "name" : "Timer Interval 1",
+        "type" : "int",
+        "value" : "10",
+        "validation" : {
+          "required" : true
+        }
+      },
+      {
         "name" : "Color 2",
         "type" : "colour",
         "value" : "#3cb44b",
+        "validation" : {
+          "required" : true
+        }
+      },
+      {
+        "name" : "Timer Interval 2",
+        "type" : "int",
+        "value" : "15",
         "validation" : {
           "required" : true
         }
@@ -38,9 +54,25 @@
         }
       },
       {
+        "name" : "Timer Interval 3",
+        "type" : "int",
+        "value" : "20",
+        "validation" : {
+          "required" : true
+        }
+      },
+      {
         "name" : "Color 4",
         "type" : "colour",
         "value" : "#0082c8",
+        "validation" : {
+          "required" : true
+        }
+      },
+      {
+        "name" : "Timer Interval 4",
+        "type" : "int",
+        "value" : "25",
         "validation" : {
           "required" : true
         }
@@ -54,9 +86,25 @@
         }
       },
       {
+        "name" : "Timer Interval 5",
+        "type" : "int",
+        "value" : "30",
+        "validation" : {
+          "required" : true
+        }
+      },
+      {
         "name" : "Color 6",
         "type" : "colour",
         "value" : "#911eb4",
+        "validation" : {
+          "required" : true
+        }
+      },
+      {
+        "name" : "Timer Interval 6",
+        "type" : "int",
+        "value" : "35",
         "validation" : {
           "required" : true
         }
@@ -70,9 +118,25 @@
         }
       },
       {
+        "name" : "Timer Interval 7",
+        "type" : "int",
+        "value" : "40",
+        "validation" : {
+          "required" : true
+        }
+      },
+      {
         "name" : "Color 8",
         "type" : "colour",
         "value" : "#46f0f0",
+        "validation" : {
+          "required" : true
+        }
+      },
+      {
+        "name" : "Timer Interval 8",
+        "type" : "int",
+        "value" : "45",
         "validation" : {
           "required" : true
         }
@@ -86,9 +150,9 @@
         }
       },
       {
-        "name" : "Timer Interval",
+        "name" : "Timer Interval 9",
         "type" : "int",
-        "value" : "30",
+        "value" : "50",
         "validation" : {
           "required" : true
         }
