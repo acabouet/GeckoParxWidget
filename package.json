@@ -1,6 +1,6 @@
 {
   "name": "gecko-parx-widget",
-  "version": "1.0.0",
+  "version": "1.5.1",
   "description": "Random color rotation and timer widget for Gecko Parx",
   "main": "index.html",
   "author": "Adrienne Cabouet for Lavu, Inc",
@@ -26,7 +26,8 @@
         "type" : "int",
         "value" : "10",
         "validation" : {
-          "required" : true
+          "required" : true,
+          "max": 120
         }
       },
       {
@@ -42,7 +43,8 @@
         "type" : "int",
         "value" : "15",
         "validation" : {
-          "required" : true
+          "required" : true,
+          "max": 120
         }
       },
       {
@@ -58,7 +60,8 @@
         "type" : "int",
         "value" : "20",
         "validation" : {
-          "required" : true
+          "required" : true,
+          "max": 120
         }
       },
       {
@@ -74,7 +77,8 @@
         "type" : "int",
         "value" : "25",
         "validation" : {
-          "required" : true
+          "required" : true,
+          "max": 120
         }
       },
       {
@@ -90,7 +94,8 @@
         "type" : "int",
         "value" : "30",
         "validation" : {
-          "required" : true
+          "required" : true,
+          "max": 120
         }
       },
       {
@@ -106,7 +111,8 @@
         "type" : "int",
         "value" : "35",
         "validation" : {
-          "required" : true
+          "required" : true,
+          "max": 120
         }
       },
       {
@@ -122,7 +128,8 @@
         "type" : "int",
         "value" : "40",
         "validation" : {
-          "required" : true
+          "required" : true,
+          "max": 120
         }
       },
       {
@@ -138,7 +145,8 @@
         "type" : "int",
         "value" : "45",
         "validation" : {
-          "required" : true
+          "required" : true,
+          "max": 120
         }
       },
       {
@@ -154,7 +162,8 @@
         "type" : "int",
         "value" : "50",
         "validation" : {
-          "required" : true
+          "required" : true,
+          "max": 120
         }
       }
     ]

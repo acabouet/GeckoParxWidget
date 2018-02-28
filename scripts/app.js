@@ -25,23 +25,6 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
         return idnumber;
     }
 
-    // Get timeInterval, timeInterval * 2, and timeInterval * 3 - for first, second, and third groups
-    // 1 second = 1000 milliseconds. 60 seconds (1 minute) = 60000 milliseconds. 30 minutes = 180000 milliseconds.
-    // Get the timer intervals in increments (1, x2, x3) and then get those same intervals in milliseconds
-    function getTimeIntervals(t){
-        var intervals = {};
-        toMillisecconds = 60000;
-
-        for (i = 1; i <= 9; i++) {
-            intervals[i] = {
-                'minutes' : t * i,
-                'milliseconds' : (t * i) * toMillisecconds
-            }
-        }
-
-        return intervals;
-    }
-
     config.on('config-initialized', function(event, data) {
 
         // Loop through all the widget preferences, find the colors, and add them to array. Also get the timer interval and save it to a var to work with.
@@ -78,10 +61,9 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
             // Set appropriate countdown timer for each wristband color
             var id = that.prop('id');
             var position = getBlockId(id);
+            var interval = parseInt(bands[index].timer);
 
-            var interval = bands[index].timer;
-
-            // Get and display a countdown clock and current time + the interval so we can shownpm  when this wristband color's time will be up
+            // Get and display a countdown clock and current time + the interval so we can show when this wristband color's time will be up
             var now = new Date();
             var nextTime = now.getMinutes() + interval;
             now.setMinutes(nextTime);
@@ -91,8 +73,8 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
 
             tm[position] = setInterval(function(){
                 interval--;
-                if(interval === 5) {
-                    $(that).find('.time-remain').text('Your time is up! Please clear the floor within 5 minutes.');
+                if(interval === 2) {
+                    $(that).find('.time-remain').text('Your time is up! Please clear the floor within 2 minutes.');
                     $(that).find('.time-up').empty();
                 } else if(interval <= 0){
                     $(that).slideUp("slow", function() {
