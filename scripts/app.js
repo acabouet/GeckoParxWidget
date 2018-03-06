@@ -31,6 +31,7 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
         var bands = [];
         var tm = {};
         var timeBlocks = $('.time-block');
+        var firstThree = $('.time-block:lt(3)');
 
         i = 0;
 
@@ -52,6 +53,7 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
 
         }
 
+
         //Get all the divs we're gonna work with, get three random colors, then set them colors
         timeBlocks.each(function(index) {
             var that = $(this);
@@ -71,25 +73,39 @@ require(['jquery', 'wdf/widget-config', 'ntc'], function($, WidgetConfig) {
             $(that).find('.time-remain').text(interval + ' minutes remaining');
             $(that).find('.time-up').text(timeUp);
 
-            tm[position] = setInterval(function(){
-                interval--;
-                if(interval === 2) {
-                    $(that).find('.time-remain').text('Your time is up! Please clear the floor within 2 minutes.');
-                    $(that).find('.time-up').empty();
-                } else if(interval <= 0){
-                    $(that).slideUp("slow", function() {
-                        $(that).remove();
-                        $('.time-block:lt(3)').show();
-                        setTimeout(function() {
-                            console.log('time up');
-                        }, 900000);
-                    });
-                    clearInterval(tm[position]);
-                } else {
-                    $(that).find('.time-remain').text(interval + ' minutes remaining');
-                }
-            }, 60000);
+            // Add a two minute delay so jumpers can clear the floor
+            var withDelay = interval + 2;
 
+            // A function to set timers when divs are visible
+            function isVisible() {
+                tm[position] = setInterval(function(){
+                    withDelay--;
+                    interval--;
+                    if(withDelay <= 2 && withDelay > 0) {
+                        $(that).find('.time-remain').text('Your time is up! Please clear the floor within 2 minutes.');
+                        $(that).find('.time-up').empty();
+                    } else if(withDelay <= 0){
+                        $(that).slideUp("slow", function() {
+                            $(that).remove();
+                            $('.time-block:lt(3)').show(function() {
+                                $(this).trigger('isVisible');
+                            });
+                        });
+                        clearInterval(tm[position]);
+                    } else {
+                        $(that).find('.time-remain').text(interval + ' minutes remaining');
+                    }
+                }, 60000);
+            }
+
+            that.bind('isVisible', isVisible);
+
+            // Set timers for visible blocks
+            if(that.is(":visible")) {
+                isVisible();
+            }
+
+            // hide all timers then show the first 3
             $('.time-block').hide();
             $('.time-block:lt(3)').show();
 

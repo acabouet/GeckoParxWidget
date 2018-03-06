@@ -1,6 +1,6 @@
 {
   "name": "gecko-parx-widget",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "description": "Random color rotation and timer widget for Gecko Parx",
   "main": "index.html",
   "author": "Adrienne Cabouet for Lavu, Inc",
